@@ -6,6 +6,7 @@ const theme: ThemeType = {
       family: "Roboto",
     },
   },
+  formField: { border: { color: "none" } },
 };
 
 export default theme;
