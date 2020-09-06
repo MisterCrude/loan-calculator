@@ -3,7 +3,7 @@
     "baseUrl": "./src",
     "paths": {
       "@assets/*": ["./assets/*"],
-      "@containes/*": ["./containes/*"],
+      "@containers/*": ["./containers/*"],
       "@types/*": ["./types/*"],
       "@utils/*": ["./utils/*"],
       "@confing/*": ["./confing/*"]
