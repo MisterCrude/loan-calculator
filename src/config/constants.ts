@@ -5,3 +5,8 @@ export const LOAN_TYPES: TLoans = {
   instance: { name: "instance car loan", interest: 4.5 },
   spending: { name: "spending loan", interest: 7.3 },
 };
+
+export const MAX_LOAN_AMOUT: number = 1000000;
+export const MIN_LOAN_AMOUT: number = 10000;
+export const MAX_YEARS_AMOUT: number = 30;
+export const MIN_YEARS_AMOUT: number = 1;
