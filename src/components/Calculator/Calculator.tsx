@@ -5,8 +5,8 @@ import {
   LOAN_TYPES,
   MAX_LOAN_AMOUT,
   MIN_LOAN_AMOUT,
-  MAX_MONTHS_AMOUT,
-  MIN_MONTHS_AMOUT,
+  MAX_YEARS_AMOUT,
+  MIN_YEARS_AMOUT,
 } from "@config/constants";
 
 import {
@@ -29,8 +29,8 @@ const loans = keys(LOAN_TYPES);
 
 export const Calculator: React.FC = () => {
   const [loanType, setLoanType] = useState<string>(loans[0]);
-  const [loanAmount, setLoanAmount] = useState<number>(100);
-  const [yearsAmount, setYearsAmount] = useState<number>(1);
+  const [loanAmount, setLoanAmount] = useState<number>(MIN_LOAN_AMOUT);
+  const [yearsAmount, setYearsAmount] = useState<number>(MIN_YEARS_AMOUT);
   const [totalPrincipalAmount, setTotalPrincipalAmount] = useState<number>(500000);
   const [totalInterestAmount, setTotalInterestAmount] = useState<number>(500000);
   const [totalAmountPayable, setTotalAmountPayable] = useState<number>(500000);
@@ -43,7 +43,17 @@ export const Calculator: React.FC = () => {
     setYearsAmount(toNumber(e.currentTarget.value));
 
   useEffect(() => {
-    calculateLoan(loanType, loanAmount, yearsAmount);
+    const {
+      totalPrincipalAmount,
+      totalInterestAmount,
+      totalAmountPayable,
+      monthlyPayback,
+    } = calculateLoan(loanType, loanAmount, yearsAmount);
+
+    setTotalPrincipalAmount(totalPrincipalAmount);
+    setTotalInterestAmount(totalInterestAmount);
+    setTotalAmountPayable(totalAmountPayable);
+    setMonthlyPayback(monthlyPayback);
   }, [loanType, loanAmount, yearsAmount]);
 
   return (
@@ -54,6 +64,7 @@ export const Calculator: React.FC = () => {
       {/* sliders */}
       <FormField label="Loan amount">
         <RangeInput
+          step={1000}
           max={MAX_LOAN_AMOUT}
           min={MIN_LOAN_AMOUT}
           value={loanAmount}
