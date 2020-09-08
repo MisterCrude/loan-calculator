@@ -1,6 +1,8 @@
 import React, { useState, ChangeEventHandler, useEffect } from "react";
 import { keys, toNumber } from "lodash/fp";
+import BigNumber from "bignumber.js";
 import { calculateLoan, getLoanInterest } from "@utils/loan";
+import { bigNum } from "@utils/numbers";
 import {
   LOAN_TYPES,
   MAX_LOAN_AMOUT,
@@ -31,10 +33,10 @@ export const Calculator: React.FC = () => {
   const [loanType, setLoanType] = useState<string>(loans[0]);
   const [loanAmount, setLoanAmount] = useState<number>(MIN_LOAN_AMOUT);
   const [yearsAmount, setYearsAmount] = useState<number>(MIN_YEARS_AMOUT);
-  const [totalPrincipalAmount, setTotalPrincipalAmount] = useState<number>(500000);
-  const [totalInterestAmount, setTotalInterestAmount] = useState<number>(500000);
-  const [totalAmountPayable, setTotalAmountPayable] = useState<number>(500000);
-  const [monthlyPayback, setMonthlyPayback] = useState<number>(500000);
+  const [totalPrincipalAmount, setTotalPrincipalAmount] = useState<BigNumber>(bigNum(0));
+  const [totalInterestAmount, setTotalInterestAmount] = useState<BigNumber>(bigNum(0));
+  const [totalAmountPayable, setTotalAmountPayable] = useState<BigNumber>(bigNum(0));
+  const [monthlyPayback, setMonthlyPayback] = useState<BigNumber>(bigNum(0));
 
   const handleChangeLoanAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
     setLoanAmount(toNumber(e.currentTarget.value));
@@ -81,7 +83,7 @@ export const Calculator: React.FC = () => {
       {/* sliders */}
 
       {/* sliders */}
-      <FormField label="Month amount">
+      <FormField label="Years amount">
         <RangeInput
           max={MAX_YEARS_AMOUT}
           min={MIN_YEARS_AMOUT}
@@ -102,26 +104,26 @@ export const Calculator: React.FC = () => {
       <Paragraph>
         Total Principal Amount
         <br />
-        <Text weight="bold">{totalPrincipalAmount}</Text>
+        <Text weight="bold">{totalPrincipalAmount.toFormat(0)}</Text>
       </Paragraph>
 
       <Paragraph>
         Total Interest Amount
         <br />
-        <Text weight="bold">{totalInterestAmount}</Text>
+        <Text weight="bold">{totalInterestAmount.toFormat(0)}</Text>
       </Paragraph>
 
       <Paragraph>
         Total Amount Payable
         <br />
-        <Text weight="bold">{totalAmountPayable}</Text>
+        <Text weight="bold">{totalAmountPayable.toFormat(0)}</Text>
       </Paragraph>
 
       <Heading level="3">
         Monthly Payback
         <br />
         <Text weight="bold" size="xlarge">
-          {monthlyPayback}
+          {monthlyPayback.toFormat(2)}
         </Text>
       </Heading>
       {/* data */}
