@@ -123,7 +123,10 @@ export const Calculator: React.FC = () => {
       {/* data */}
 
       {/* chart */}
-      <Chart />
+      <Chart
+        principal={totalPrincipalAmount.toNumber()}
+        interest={totalInterestAmount.toNumber()}
+      />
       {/* chart */}
 
       {/* table */}

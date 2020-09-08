@@ -2,7 +2,12 @@ import React from "react";
 
 import { Meter } from "grommet";
 
-export const Chart: React.FC = () => {
+interface IProps {
+  principal: number;
+  interest: number;
+}
+
+export const Chart: React.FC<IProps> = ({ principal, interest }) => {
   return (
     <>
       Chart
@@ -12,12 +17,14 @@ export const Chart: React.FC = () => {
         thickness="large"
         values={[
           {
-            value: 70,
-            color: "graph-3",
+            value: principal,
+            color: "brand",
+            label: "principal",
           },
           {
-            value: 30,
-            color: "graph-0",
+            value: interest,
+            color: "status-warning",
+            label: "interest",
           },
         ]}
         aria-label="meter"
