@@ -1,9 +1,10 @@
 import React, { useState, ChangeEventHandler, useEffect } from "react";
-import { keys, toNumber } from "lodash/fp";
 import BigNumber from "bignumber.js";
+import { keys } from "lodash/fp";
 import { calculateLoan, getLoanInterest, getTargetValue } from "@utils/loan";
 import { bigNum } from "@utils/numbers";
 import {
+  CURRENCY,
   LOAN_TYPES,
   MAX_LOAN_AMOUT,
   MIN_LOAN_AMOUT,
@@ -11,21 +12,9 @@ import {
   MIN_YEARS_AMOUT,
 } from "@config/constants";
 
-import {
-  Select,
-  Paragraph,
-  FormField,
-  RangeInput,
-  TextInput,
-  Heading,
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell,
-  TableBody,
-  Text,
-} from "grommet";
+import { Select, Paragraph, FormField, RangeInput, TextInput, Heading, Text } from "grommet";
 import Chart from "@components/Chart";
+import Table from "@components/Table";
 
 const loans = keys(LOAN_TYPES);
 
@@ -37,6 +26,7 @@ export const Calculator: React.FC = () => {
   const [totalInterestAmount, setTotalInterestAmount] = useState<BigNumber>(bigNum(0));
   const [totalAmountPayable, setTotalAmountPayable] = useState<BigNumber>(bigNum(0));
   const [monthlyPayback, setMonthlyPayback] = useState<BigNumber>(bigNum(0));
+  const [yearPayback, setYearPayback] = useState<BigNumber>(bigNum(0));
 
   const handleChangeLoanAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
     setLoanAmount(getTargetValue(e.currentTarget.value, MAX_LOAN_AMOUT, MIN_LOAN_AMOUT));
@@ -50,12 +40,14 @@ export const Calculator: React.FC = () => {
       totalInterestAmount,
       totalAmountPayable,
       monthlyPayback,
+      yearPayback,
     } = calculateLoan(loanType, loanAmount, yearsAmount);
 
     setTotalPrincipalAmount(totalPrincipalAmount);
     setTotalInterestAmount(totalInterestAmount);
     setTotalAmountPayable(totalAmountPayable);
     setMonthlyPayback(monthlyPayback);
+    setYearPayback(yearPayback);
   }, [loanType, loanAmount, yearsAmount]);
 
   return (
@@ -64,7 +56,7 @@ export const Calculator: React.FC = () => {
       <Paragraph>Interest rate: {getLoanInterest(loanType)}%</Paragraph>
 
       {/* sliders */}
-      <FormField label="Loan amount">
+      <FormField label={`Loan amount ${CURRENCY.SIGN}`}>
         <RangeInput
           step={1000}
           max={MAX_LOAN_AMOUT}
@@ -98,26 +90,32 @@ export const Calculator: React.FC = () => {
       <Paragraph>
         Total Principal Amount
         <br />
-        <Text weight="bold">{totalPrincipalAmount.toFormat(0)}</Text>
+        <Text weight="bold">
+          {totalPrincipalAmount.toFormat(0)} {CURRENCY.SIGN}
+        </Text>
       </Paragraph>
 
       <Paragraph>
         Total Interest Amount
         <br />
-        <Text weight="bold">{totalInterestAmount.toFormat(0)}</Text>
+        <Text weight="bold">
+          {totalInterestAmount.toFormat(0)} {CURRENCY.SIGN}
+        </Text>
       </Paragraph>
 
       <Paragraph>
         Total Amount Payable
         <br />
-        <Text weight="bold">{totalAmountPayable.toFormat(0)}</Text>
+        <Text weight="bold">
+          {totalAmountPayable.toFormat(0)} {CURRENCY.SIGN}
+        </Text>
       </Paragraph>
 
       <Heading level="3">
         Monthly Payback
         <br />
         <Text weight="bold" size="xlarge">
-          {monthlyPayback.toFormat(2)}
+          {monthlyPayback.toFormat(2)} {CURRENCY.SIGN}
         </Text>
       </Heading>
       {/* data */}
@@ -130,59 +128,12 @@ export const Calculator: React.FC = () => {
       {/* chart */}
 
       {/* table */}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableCell scope="col" border="bottom">
-              Name
-            </TableCell>
-            <TableCell scope="col" border="bottom">
-              Flavor
-            </TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell scope="row">
-              <strong>Eric</strong>
-            </TableCell>
-            <TableCell>Coconut</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell scope="row">
-              <strong>Chris</strong>
-            </TableCell>
-            <TableCell>Watermelon</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <Table
+        yearsAmount={yearsAmount}
+        yearPayback={yearPayback}
+        totalAmountPayable={totalAmountPayable}
+      />
       {/* table */}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableCell scope="col" border="bottom">
-              Name
-            </TableCell>
-            <TableCell scope="col" border="bottom">
-              Flavor
-            </TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell scope="row">
-              <strong>Eric</strong>
-            </TableCell>
-            <TableCell>Coconut</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell scope="row">
-              <strong>Chris</strong>
-            </TableCell>
-            <TableCell>Watermelon</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
     </>
   );
 };

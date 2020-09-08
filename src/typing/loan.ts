@@ -9,6 +9,16 @@ export interface ICalculatedLoan {
   totalInterestAmount: BigNumber;
   totalAmountPayable: BigNumber;
   monthlyPayback: BigNumber;
+  yearPayback: BigNumber;
+}
+
+export interface ICalculatedCurrentBalance {
+  currentBalance: string;
+}
+
+export interface ICurrency {
+  SIGN: string;
+  CODE: string;
 }
 
 export type TLoans = Record<string, ILoan>;

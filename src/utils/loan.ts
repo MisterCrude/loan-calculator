@@ -1,7 +1,7 @@
 import { toNumber } from "lodash/fp";
 import BigNumber from "bignumber.js";
 import { LOAN_TYPES } from "@config/constants";
-import { ICalculatedLoan } from "@typing/loan";
+import { ICalculatedLoan, ICalculatedCurrentBalance } from "@typing/loan";
 import { bigNum } from "@utils/numbers";
 
 export const calculateLoan = (
@@ -17,6 +17,7 @@ export const calculateLoan = (
     (loanAmount * (interestPerMonth ** payableMonthsAmount * (interestPerMonth - 1))) /
       (interestPerMonth ** payableMonthsAmount - 1)
   );
+  const yearPayback: BigNumber = monthlyPayback.multipliedBy(12);
   const totalPrincipalAmount: BigNumber = bigNum(loanAmount);
   const totalAmountPayable: BigNumber = monthlyPayback.multipliedBy(payableMonthsAmount);
   const totalInterestAmount: BigNumber = monthlyPayback
@@ -28,10 +29,26 @@ export const calculateLoan = (
     totalInterestAmount,
     totalAmountPayable,
     monthlyPayback,
+    yearPayback,
   };
 };
 
 export const getLoanInterest = (loanType: string): number => LOAN_TYPES[loanType].interest;
+
+export const calculateCurrentBalance = (
+  payable: BigNumber,
+  yearPayback: BigNumber,
+  year: number
+): ICalculatedCurrentBalance => {
+  const currentBalance: string = payable
+    .minus(yearPayback.multipliedBy(year).toNumber())
+    .toFormat(2)
+    .replace("-", "");
+
+  return { currentBalance };
+};
+
+// export const calculatePrincipalPaid = () => {};
 
 export const getTargetValue = (num: number | string, max: number, min: number): number => {
   let val: number = toNumber(num);
