@@ -1,7 +1,7 @@
 import React, { useState, ChangeEventHandler, useEffect } from "react";
 import { keys, toNumber } from "lodash/fp";
 import BigNumber from "bignumber.js";
-import { calculateLoan, getLoanInterest } from "@utils/loan";
+import { calculateLoan, getLoanInterest, getTargetValue } from "@utils/loan";
 import { bigNum } from "@utils/numbers";
 import {
   LOAN_TYPES,
@@ -39,10 +39,10 @@ export const Calculator: React.FC = () => {
   const [monthlyPayback, setMonthlyPayback] = useState<BigNumber>(bigNum(0));
 
   const handleChangeLoanAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setLoanAmount(toNumber(e.currentTarget.value));
+    setLoanAmount(getTargetValue(e.currentTarget.value, MAX_LOAN_AMOUT, MIN_LOAN_AMOUT));
 
   const handleChangeYearsAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setYearsAmount(toNumber(e.currentTarget.value));
+    setYearsAmount(getTargetValue(e.currentTarget.value, MAX_YEARS_AMOUT, MIN_YEARS_AMOUT));
 
   useEffect(() => {
     const {
@@ -73,13 +73,7 @@ export const Calculator: React.FC = () => {
           onChange={handleChangeLoanAmount}
         />
       </FormField>
-      <TextInput
-        type="number"
-        max={MAX_LOAN_AMOUT}
-        min={MIN_LOAN_AMOUT}
-        value={loanAmount}
-        onChange={handleChangeLoanAmount}
-      />
+      <TextInput type="number" value={loanAmount} onChange={handleChangeLoanAmount} />
       {/* sliders */}
 
       {/* sliders */}
