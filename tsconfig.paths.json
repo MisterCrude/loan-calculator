@@ -3,10 +3,10 @@
     "baseUrl": "./src",
     "paths": {
       "@assets/*": ["./assets/*"],
-      "@containers/*": ["./containers/*"],
-      "@types/*": ["./types/*"],
+      "@components/*": ["./components/*"],
+      "@typing/*": ["./typing/*"],
       "@utils/*": ["./utils/*"],
-      "@confing/*": ["./confing/*"]
+      "@config/*": ["./config/*"]
     }
   }
 }

@@ -1,5 +1,7 @@
-import React, { useState, ChangeEventHandler } from "react";
+import React, { useState, ChangeEventHandler, useEffect } from "react";
 import { keys, toNumber } from "lodash/fp";
+import { loanCalculator } from "@utils/loan";
+import { TLoans } from "@typing/loan";
 
 import {
   Select,
@@ -15,12 +17,7 @@ import {
   TableBody,
   Text,
 } from "grommet";
-
-interface ILoan {
-  name: string;
-  interest: number;
-}
-type TLoans = Record<string, ILoan>;
+import Chart from "@components/Chart";
 
 const LOAN_TYPES: TLoans = {
   housing: { name: "housing loan", interest: 3.5 },
@@ -34,35 +31,38 @@ const MIN_MONTHS_AMOUT: number = 0;
 
 const loans = keys(LOAN_TYPES);
 
-const getLoanInterest = (loanType: string): number =>
-  LOAN_TYPES[loanType].interest;
+const getLoanInterest = (loanType: string): number => LOAN_TYPES[loanType].interest;
 
 export const Calculator: React.FC = () => {
-  const [loanValue, setLoanValue] = useState<string>(loans[0]);
-  const [amountValue, setAmountValue] = useState<number>(100);
-  const [monthsAmountValue, setMonthsAmountValue] = useState<number>(1);
+  const [loanType, setLoanType] = useState<string>(loans[0]);
+  const [loanAmount, setLoanAmount] = useState<number>(100);
+  const [monthsAmount, setMonthsAmount] = useState<number>(1);
+  const [totalPrincipalAmount, setTotalPrincipalAmount] = useState<number>(500000);
+  const [totalInterestAmount, setTotalInterestAmount] = useState<number>(500000);
+  const [totalAmountPayable, setTotalAmountPayable] = useState<number>(500000);
+  const [monthlyPayback, setMonthlyPayback] = useState<number>(500000);
 
   const handleChangeLoanAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setAmountValue(toNumber(e.currentTarget.value));
+    setLoanAmount(toNumber(e.currentTarget.value));
 
   const handleChangeMonthsAmount: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setMonthsAmountValue(toNumber(e.currentTarget.value));
+    setMonthsAmount(toNumber(e.currentTarget.value));
+
+  useEffect(() => {
+    loanCalculator(loanType, loanAmount, monthsAmount);
+  }, [loanType, loanAmount, monthsAmount]);
 
   return (
     <>
-      <Select
-        options={loans}
-        value={loanValue}
-        onChange={({ option }) => setLoanValue(option)}
-      />
-      <Paragraph>Interest rate: {getLoanInterest(loanValue)}%</Paragraph>
+      <Select options={loans} value={loanType} onChange={({ option }) => setLoanType(option)} />
+      <Paragraph>Interest rate: {getLoanInterest(loanType)}%</Paragraph>
 
       {/* sliders */}
       <FormField label="Loan amount">
         <RangeInput
           max={MAX_LOAN_AMOUT}
           min={MIN_LOAN_AMOUT}
-          value={amountValue}
+          value={loanAmount}
           onChange={handleChangeLoanAmount}
         />
       </FormField>
@@ -70,7 +70,7 @@ export const Calculator: React.FC = () => {
         type="number"
         max={MAX_LOAN_AMOUT}
         min={MIN_LOAN_AMOUT}
-        value={amountValue}
+        value={loanAmount}
         onChange={handleChangeLoanAmount}
       />
       {/* sliders */}
@@ -80,7 +80,7 @@ export const Calculator: React.FC = () => {
         <RangeInput
           max={MAX_MONTHS_AMOUT}
           min={MIN_MONTHS_AMOUT}
-          value={monthsAmountValue}
+          value={monthsAmount}
           onChange={handleChangeMonthsAmount}
         />
       </FormField>
@@ -88,7 +88,7 @@ export const Calculator: React.FC = () => {
         type="number"
         max={MAX_MONTHS_AMOUT}
         min={MIN_MONTHS_AMOUT}
-        value={monthsAmountValue}
+        value={monthsAmount}
         onChange={handleChangeMonthsAmount}
       />
       {/* sliders */}
@@ -97,29 +97,33 @@ export const Calculator: React.FC = () => {
       <Paragraph>
         Total Principal Amount
         <br />
-        <Text weight="bold">500,000</Text>
+        <Text weight="bold">{totalPrincipalAmount}</Text>
       </Paragraph>
 
       <Paragraph>
         Total Interest Amount
         <br />
-        <Text weight="bold">500,000</Text>
+        <Text weight="bold">{totalInterestAmount}</Text>
       </Paragraph>
 
       <Paragraph>
         Total Amount Payable
         <br />
-        <Text weight="bold">500,000</Text>
+        <Text weight="bold">{totalAmountPayable}</Text>
       </Paragraph>
 
       <Heading level="3">
-        Total Amount Payable
+        Monthly Payback
         <br />
         <Text weight="bold" size="xlarge">
-          1500,000
+          {monthlyPayback}
         </Text>
       </Heading>
       {/* data */}
+
+      {/* chart */}
+      <Chart />
+      {/* chart */}
 
       {/* table */}
       <Table>

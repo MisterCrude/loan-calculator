@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import theme from "@utils/theme";
 
 import { Grommet } from "grommet";
-import App from "@containers/App";
+import App from "@components/App";
 
 ReactDOM.render(
   <React.StrictMode>

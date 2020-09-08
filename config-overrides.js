@@ -4,10 +4,10 @@ module.exports = function override(config) {
   config.resolve.alias = {
     ...config.resolve.alias,
     "@assets": path.resolve(__dirname, "src/assets/"),
-    "@containers": path.resolve(__dirname, "src/containers/"),
-    "@types": path.resolve(__dirname, "src/types/"),
+    "@components": path.resolve(__dirname, "src/components/"),
+    "@typing": path.resolve(__dirname, "src/typing/"),
     "@utils": path.resolve(__dirname, "src/utils/"),
-    "@confing": path.resolve(__dirname, "src/confing/"),
+    "@config": path.resolve(__dirname, "src/config/"),
   };
 
   return config;
