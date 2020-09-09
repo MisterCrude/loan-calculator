@@ -30,7 +30,7 @@ export const Inputs: React.FC<IProps> = ({
   onChangeYearsAmount,
 }) => {
   return (
-    <Card width="large" pad="medium">
+    <Card width="large" pad={{ horizontal: "large", bottom: "large" }}>
       <Box>
         <Heading level={3} alignSelf="center">
           Setup your loan parameters

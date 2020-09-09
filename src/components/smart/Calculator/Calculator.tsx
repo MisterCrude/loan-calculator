@@ -10,7 +10,6 @@ import {
   MIN_YEARS_AMOUT,
 } from "@config/constants";
 
-import Chart from "@components/dump/Chart";
 import Table from "@components/dump/Table";
 import Inputs from "@components/dump/Inputs";
 import Panel from "@components/dump/Panel";
@@ -63,11 +62,6 @@ export const Calculator: React.FC = () => {
         interest={totalInterestAmount}
         payableAmount={totalAmountPayable}
         monthlyPayback={monthlyPayback}
-      />
-
-      <Chart
-        principal={totalPrincipalAmount.toNumber()}
-        interest={totalInterestAmount.toNumber()}
       />
 
       <Table
