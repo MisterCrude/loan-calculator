@@ -9,6 +9,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Card,
 } from "grommet";
 import { TableLineRow } from "./TableLineRow";
 
@@ -30,8 +31,10 @@ export const Table: React.FC<IProps> = ({
   const yearsRange: number[] = range(1, yearsAmount + 1);
 
   return (
-    <>
-      <Heading level="3">Home Loan Amortization Schedule</Heading>
+    <Card width="large" background="light-1">
+      <Heading level="3" alignSelf="center" color="dark-2">
+        Home Loan Amortization Schedule
+      </Heading>
 
       <TableGrommet>
         <TableHeader>
@@ -67,6 +70,6 @@ export const Table: React.FC<IProps> = ({
           ))}
         </TableBody>
       </TableGrommet>
-    </>
+    </Card>
   );
 };

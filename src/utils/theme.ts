@@ -7,6 +7,9 @@ const theme: ThemeType = {
     },
   },
   formField: { border: { color: "none" }, label: { margin: { horizontal: "none" } } },
+  table: {
+    body: { pad: { horizontal: "medium", vertical: "small" } },
+  },
 };
 
 export default theme;

@@ -30,65 +30,67 @@ export const Inputs: React.FC<IProps> = ({
   onChangeYearsAmount,
 }) => {
   return (
-    <Card width="large" pad={{ horizontal: "large", bottom: "large" }}>
-      <Box>
-        <Heading level={3} alignSelf="center">
-          Setup your loan parameters
-        </Heading>
-      </Box>
-
-      <Box direction="row" align="center" justify="between" pad={{ bottom: "medium" }}>
-        <Box width="medium">
-          <Select
-            options={LOANS}
-            value={loanType}
-            onChange={({ option }) => onSetLoanType(option)}
-          />
-        </Box>
+    <Box margin={{ bottom: "large" }}>
+      <Card width="large" pad={{ horizontal: "large", bottom: "large" }} background="light-1">
         <Box>
-          <Paragraph>
-            Interest rate: <strong>{getLoanInterest(loanType)}%</strong>
-          </Paragraph>
+          <Heading level={3} alignSelf="center" color="dark-2">
+            Setup your loan parameters
+          </Heading>
         </Box>
-      </Box>
 
-      <Box pad={{ bottom: "medium" }}>
-        <FormField label={`Loan amount ${CURRENCY.SIGN}`}>
-          <RangeInput
-            step={LOAN_STEP}
-            max={MAX_LOAN_AMOUT}
-            min={MIN_LOAN_AMOUT}
-            value={loanAmount}
-            onChange={onChangeLoanAmount}
-          />
-        </FormField>
-
-        <Box direction="row" justify="start">
-          <Box width="small">
-            <TextInput type="number" value={loanAmount} onChange={onChangeLoanAmount} />
+        <Box direction="row" align="center" justify="between" pad={{ bottom: "medium" }}>
+          <Box width="medium">
+            <Select
+              options={LOANS}
+              value={loanType}
+              onChange={({ option }) => onSetLoanType(option)}
+            />
+          </Box>
+          <Box>
+            <Paragraph>
+              Interest rate: <strong>{getLoanInterest(loanType)}%</strong>
+            </Paragraph>
           </Box>
         </Box>
-      </Box>
 
-      <FormField label="Years amount">
-        <RangeInput
-          max={MAX_YEARS_AMOUT}
-          min={MIN_YEARS_AMOUT}
-          value={yearsAmount}
-          onChange={onChangeYearsAmount}
-        />
-      </FormField>
-      <Box direction="row" justify="start">
-        <Box width="small">
-          <TextInput
-            type="number"
+        <Box pad={{ bottom: "medium" }}>
+          <FormField label={`Loan amount ${CURRENCY.SIGN}`}>
+            <RangeInput
+              step={LOAN_STEP}
+              max={MAX_LOAN_AMOUT}
+              min={MIN_LOAN_AMOUT}
+              value={loanAmount}
+              onChange={onChangeLoanAmount}
+            />
+          </FormField>
+
+          <Box direction="row" justify="start">
+            <Box width="small">
+              <TextInput type="number" value={loanAmount} onChange={onChangeLoanAmount} />
+            </Box>
+          </Box>
+        </Box>
+
+        <FormField label="Years amount">
+          <RangeInput
             max={MAX_YEARS_AMOUT}
             min={MIN_YEARS_AMOUT}
             value={yearsAmount}
             onChange={onChangeYearsAmount}
           />
+        </FormField>
+        <Box direction="row" justify="start">
+          <Box width="small">
+            <TextInput
+              type="number"
+              max={MAX_YEARS_AMOUT}
+              min={MIN_YEARS_AMOUT}
+              value={yearsAmount}
+              onChange={onChangeYearsAmount}
+            />
+          </Box>
         </Box>
-      </Box>
-    </Card>
+      </Card>
+    </Box>
   );
 };
