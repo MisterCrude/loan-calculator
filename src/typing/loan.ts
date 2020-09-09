@@ -12,10 +12,6 @@ export interface ICalculatedLoan {
   yearPayback: BigNumber;
 }
 
-export interface ICalculatedCurrentBalance {
-  currentBalance: string;
-}
-
 export interface ICurrency {
   SIGN: string;
   CODE: string;

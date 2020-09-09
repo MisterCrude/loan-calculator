@@ -13,12 +13,20 @@ import {
 import { TableLineRow } from "./TableLineRow";
 
 interface IProps {
+  totalPrincipalAmount: BigNumber;
+  totalInterestAmount: BigNumber;
   totalAmountPayable: BigNumber;
   yearPayback: BigNumber;
   yearsAmount: number;
 }
 
-export const Table: React.FC<IProps> = ({ totalAmountPayable, yearPayback, yearsAmount }) => (
+export const Table: React.FC<IProps> = ({
+  totalAmountPayable,
+  totalPrincipalAmount,
+  totalInterestAmount,
+  yearPayback,
+  yearsAmount,
+}) => (
   <>
     <Heading level="3">Home Loan Amortization Schedule</Heading>
     <TableGrommet>
@@ -46,8 +54,10 @@ export const Table: React.FC<IProps> = ({ totalAmountPayable, yearPayback, years
           <TableLineRow
             key={year}
             year={year}
-            yearPayback={yearPayback}
-            totalAmountPayable={totalAmountPayable}
+            payback={yearPayback}
+            payableAmount={totalAmountPayable}
+            principal={totalPrincipalAmount}
+            interest={totalInterestAmount}
           />
         ))}
       </TableBody>

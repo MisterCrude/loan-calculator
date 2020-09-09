@@ -91,7 +91,7 @@ export const Calculator: React.FC = () => {
         Total Principal Amount
         <br />
         <Text weight="bold">
-          {totalPrincipalAmount.toFormat(0)} {CURRENCY.SIGN}
+          {totalPrincipalAmount.toFormat(2)} {CURRENCY.SIGN}
         </Text>
       </Paragraph>
 
@@ -99,7 +99,7 @@ export const Calculator: React.FC = () => {
         Total Interest Amount
         <br />
         <Text weight="bold">
-          {totalInterestAmount.toFormat(0)} {CURRENCY.SIGN}
+          {totalInterestAmount.toFormat(2)} {CURRENCY.SIGN}
         </Text>
       </Paragraph>
 
@@ -107,7 +107,7 @@ export const Calculator: React.FC = () => {
         Total Amount Payable
         <br />
         <Text weight="bold">
-          {totalAmountPayable.toFormat(0)} {CURRENCY.SIGN}
+          {totalAmountPayable.toFormat(2)} {CURRENCY.SIGN}
         </Text>
       </Paragraph>
 
@@ -132,6 +132,8 @@ export const Calculator: React.FC = () => {
         yearsAmount={yearsAmount}
         yearPayback={yearPayback}
         totalAmountPayable={totalAmountPayable}
+        totalPrincipalAmount={totalPrincipalAmount}
+        totalInterestAmount={totalInterestAmount}
       />
       {/* table */}
     </>

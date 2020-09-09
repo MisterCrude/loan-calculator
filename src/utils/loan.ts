@@ -1,7 +1,7 @@
 import { toNumber } from "lodash/fp";
 import BigNumber from "bignumber.js";
 import { LOAN_TYPES } from "@config/constants";
-import { ICalculatedLoan, ICalculatedCurrentBalance } from "@typing/loan";
+import { ICalculatedLoan } from "@typing/loan";
 import { bigNum } from "@utils/numbers";
 
 export const calculateLoan = (
@@ -39,13 +39,14 @@ export const calculateCurrentBalance = (
   payable: BigNumber,
   yearPayback: BigNumber,
   year: number
-): ICalculatedCurrentBalance => {
-  const currentBalance: string = payable
-    .minus(yearPayback.multipliedBy(year).toNumber())
-    .toFormat(2)
-    .replace("-", "");
+): BigNumber => {
+  let currentBalance: BigNumber = payable.minus(yearPayback.multipliedBy(year).toNumber());
 
-  return { currentBalance };
+  if (currentBalance.isLessThan(0)) {
+    currentBalance = currentBalance.negated();
+  }
+
+  return currentBalance;
 };
 
 // export const calculatePrincipalPaid = () => {};

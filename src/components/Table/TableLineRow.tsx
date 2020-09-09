@@ -5,21 +5,29 @@ import { calculateCurrentBalance } from "@utils/loan";
 import { TableRow, TableCell } from "grommet";
 
 interface IProps {
-  totalAmountPayable: BigNumber;
-  yearPayback: BigNumber;
+  payableAmount: BigNumber;
+  principal: BigNumber;
+  interest: BigNumber;
+  payback: BigNumber;
   year: number;
 }
 
-export const TableLineRow: React.FC<IProps> = ({ totalAmountPayable, yearPayback, year }) => {
-  const { currentBalance } = calculateCurrentBalance(totalAmountPayable, yearPayback, year);
+export const TableLineRow: React.FC<IProps> = ({
+  payableAmount,
+  principal,
+  interest,
+  payback,
+  year,
+}) => {
+  const currentBalance: BigNumber = calculateCurrentBalance(payableAmount, payback, year);
 
   return (
     <TableRow>
       <TableCell>{year}</TableCell>
-      <TableCell>{yearPayback.toFormat(2)}</TableCell>
-      <TableCell>sd</TableCell>
-      <TableCell>Coconut</TableCell>
-      <TableCell>{currentBalance}</TableCell>
+      <TableCell>{payback.toFormat(2)}</TableCell>
+      <TableCell>{principal.toFormat(2)}</TableCell>
+      <TableCell>{interest.toFormat(2)}</TableCell>
+      <TableCell>{currentBalance.toFormat(2)}</TableCell>
     </TableRow>
   );
 };
