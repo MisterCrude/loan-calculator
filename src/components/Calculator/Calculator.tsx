@@ -4,17 +4,16 @@ import { calculateLoan, getTargetValue } from "@utils/loan";
 import { bigNum } from "@utils/numbers";
 import {
   LOANS,
-  CURRENCY,
   MAX_LOAN_AMOUT,
   MIN_LOAN_AMOUT,
   MAX_YEARS_AMOUT,
   MIN_YEARS_AMOUT,
 } from "@config/constants";
 
-import { Paragraph, Heading, Text } from "grommet";
 import Chart from "@components/Chart";
 import Table from "@components/Table";
 import Inputs from "@components/Inputs";
+import Panel from "@components/Panel";
 
 export const Calculator: React.FC = () => {
   const [loanType, setLoanType] = useState<string>(LOANS[0]);
@@ -59,48 +58,18 @@ export const Calculator: React.FC = () => {
         onChangeYearsAmount={handleChangeYearsAmount}
       />
 
-      {/* data */}
-      <Paragraph>
-        Total Principal Amount
-        <br />
-        <Text weight="bold">
-          {totalPrincipalAmount.toFormat(2)} {CURRENCY.SIGN}
-        </Text>
-      </Paragraph>
+      <Panel
+        principal={totalPrincipalAmount}
+        interest={totalInterestAmount}
+        payableAmount={totalAmountPayable}
+        monthlyPayback={monthlyPayback}
+      />
 
-      <Paragraph>
-        Total Interest Amount
-        <br />
-        <Text weight="bold">
-          {totalInterestAmount.toFormat(2)} {CURRENCY.SIGN}
-        </Text>
-      </Paragraph>
-
-      <Paragraph>
-        Total Amount Payable
-        <br />
-        <Text weight="bold">
-          {totalAmountPayable.toFormat(2)} {CURRENCY.SIGN}
-        </Text>
-      </Paragraph>
-
-      <Heading level="3">
-        Monthly Payback
-        <br />
-        <Text weight="bold" size="xlarge">
-          {monthlyPayback.toFormat(2)} {CURRENCY.SIGN}
-        </Text>
-      </Heading>
-      {/* data */}
-
-      {/* chart */}
       <Chart
         principal={totalPrincipalAmount.toNumber()}
         interest={totalInterestAmount.toNumber()}
       />
-      {/* chart */}
 
-      {/* table */}
       <Table
         yearsAmount={yearsAmount}
         yearPayback={yearPayback}
@@ -108,7 +77,6 @@ export const Calculator: React.FC = () => {
         totalPrincipalAmount={totalPrincipalAmount}
         totalInterestAmount={totalInterestAmount}
       />
-      {/* table */}
     </>
   );
 };
