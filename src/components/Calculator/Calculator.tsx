@@ -1,25 +1,23 @@
 import React, { useState, ChangeEventHandler, useEffect } from "react";
 import BigNumber from "bignumber.js";
-import { keys } from "lodash/fp";
-import { calculateLoan, getLoanInterest, getTargetValue } from "@utils/loan";
+import { calculateLoan, getTargetValue } from "@utils/loan";
 import { bigNum } from "@utils/numbers";
 import {
+  LOANS,
   CURRENCY,
-  LOAN_TYPES,
   MAX_LOAN_AMOUT,
   MIN_LOAN_AMOUT,
   MAX_YEARS_AMOUT,
   MIN_YEARS_AMOUT,
 } from "@config/constants";
 
-import { Select, Paragraph, FormField, RangeInput, TextInput, Heading, Text } from "grommet";
+import { Paragraph, Heading, Text } from "grommet";
 import Chart from "@components/Chart";
 import Table from "@components/Table";
-
-const loans = keys(LOAN_TYPES);
+import Inputs from "@components/Inputs";
 
 export const Calculator: React.FC = () => {
-  const [loanType, setLoanType] = useState<string>(loans[0]);
+  const [loanType, setLoanType] = useState<string>(LOANS[0]);
   const [loanAmount, setLoanAmount] = useState<number>(MIN_LOAN_AMOUT);
   const [yearsAmount, setYearsAmount] = useState<number>(MIN_YEARS_AMOUT);
   const [totalPrincipalAmount, setTotalPrincipalAmount] = useState<BigNumber>(bigNum(0));
@@ -52,39 +50,14 @@ export const Calculator: React.FC = () => {
 
   return (
     <>
-      <Select options={loans} value={loanType} onChange={({ option }) => setLoanType(option)} />
-      <Paragraph>Interest rate: {getLoanInterest(loanType)}%</Paragraph>
-
-      {/* sliders */}
-      <FormField label={`Loan amount ${CURRENCY.SIGN}`}>
-        <RangeInput
-          step={1000}
-          max={MAX_LOAN_AMOUT}
-          min={MIN_LOAN_AMOUT}
-          value={loanAmount}
-          onChange={handleChangeLoanAmount}
-        />
-      </FormField>
-      <TextInput type="number" value={loanAmount} onChange={handleChangeLoanAmount} />
-      {/* sliders */}
-
-      {/* sliders */}
-      <FormField label="Years amount">
-        <RangeInput
-          max={MAX_YEARS_AMOUT}
-          min={MIN_YEARS_AMOUT}
-          value={yearsAmount}
-          onChange={handleChangeYearsAmount}
-        />
-      </FormField>
-      <TextInput
-        type="number"
-        max={MAX_YEARS_AMOUT}
-        min={MIN_YEARS_AMOUT}
-        value={yearsAmount}
-        onChange={handleChangeYearsAmount}
+      <Inputs
+        loanType={loanType}
+        loanAmount={loanAmount}
+        yearsAmount={yearsAmount}
+        onSetLoanType={setLoanType}
+        onChangeLoanAmount={handleChangeLoanAmount}
+        onChangeYearsAmount={handleChangeYearsAmount}
       />
-      {/* sliders */}
 
       {/* data */}
       <Paragraph>
