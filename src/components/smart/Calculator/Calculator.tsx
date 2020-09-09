@@ -10,10 +10,10 @@ import {
   MIN_YEARS_AMOUT,
 } from "@config/constants";
 
-import Chart from "@components/Chart";
-import Table from "@components/Table";
-import Inputs from "@components/Inputs";
-import Panel from "@components/Panel";
+import Chart from "@components/dump/Chart";
+import Table from "@components/dump/Table";
+import Inputs from "@components/dump/Inputs";
+import Panel from "@components/dump/Panel";
 
 export const Calculator: React.FC = () => {
   const [loanType, setLoanType] = useState<string>(LOANS[0]);
