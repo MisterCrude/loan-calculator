@@ -15,6 +15,7 @@
     "grommet": "^2.15.0",
     "grommet-icons": "^4.4.0",
     "lodash": "^4.17.20",
+    "pretty-quick": "^3.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
@@ -43,6 +44,14 @@
     ]
   },
   "devDependencies": {
+    "husky": "^4.3.0",
+    "prettier": "^2.1.1",
     "react-app-rewired": "^2.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "yarn test --watchAll=false"
+    }
   }
 }
