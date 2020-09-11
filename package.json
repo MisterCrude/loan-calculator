@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ivyman.github.io/loan-calculator/",
   "name": "loan-calculator",
   "version": "0.1.0",
   "private": true,
@@ -26,7 +27,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env jest-environment-jsdom-fourteen",
-    "eject": "react-script eject"
+    "eject": "react-script eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "prettier": "^2.1.1",
     "react-app-rewired": "^2.1.6"
