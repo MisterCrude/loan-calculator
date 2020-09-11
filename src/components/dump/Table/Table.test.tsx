@@ -3,9 +3,8 @@ import { bigNum } from "@utils/numbers";
 import { render } from "@testing-library/react";
 
 import { Table } from "./Table";
-import { debug } from "console";
 
-test("render table with proper column names", () => {
+test("render Table with proper column names", () => {
   const { getByText } = render(
     <Table
       yearsAmount={2}
@@ -15,20 +14,15 @@ test("render table with proper column names", () => {
       totalPrincipalAmount={bigNum(100000)}
     />
   );
-  const yearElement = getByText("Year");
-  const emiElement = getByText("EMI*12");
-  const principalElement = getByText("Principal paid yearly");
-  const interestElement = getByText("Interest paid yearly");
-  const closingBalanceElement = getByText("Closing balance");
 
-  expect(yearElement).toBeInTheDocument();
-  expect(emiElement).toBeInTheDocument();
-  expect(principalElement).toBeInTheDocument();
-  expect(interestElement).toBeInTheDocument();
-  expect(closingBalanceElement).toBeInTheDocument();
+  expect(getByText("Year")).toBeInTheDocument();
+  expect(getByText("EMI*12")).toBeInTheDocument();
+  expect(getByText("Principal paid yearly")).toBeInTheDocument();
+  expect(getByText("Interest paid yearly")).toBeInTheDocument();
+  expect(getByText("Closing balance")).toBeInTheDocument();
 });
 
-test("render table with proper amount ot table rows", () => {
+test("render Table with proper amount ot table rows", () => {
   const yearsAmount = 2;
   const expectEMI = bigNum(10000);
 
