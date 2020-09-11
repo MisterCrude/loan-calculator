@@ -33,7 +33,7 @@ export const calculateLoan = (
   };
 };
 
-export const getLoanInterest = (loanType: string): number => LOAN_TYPES[loanType].interest;
+export const getLoanInterest = (loanType: string): number => LOAN_TYPES[loanType]?.interest;
 
 export const calculateCurrentBalance = (
   payable: BigNumber,

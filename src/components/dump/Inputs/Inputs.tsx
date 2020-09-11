@@ -41,6 +41,8 @@ export const Inputs: React.FC<IProps> = ({
         <Box direction="row" align="center" justify="between" pad={{ bottom: "medium" }}>
           <Box width="medium">
             <Select
+              id="loanType"
+              name="loanType"
               options={LOANS}
               value={loanType}
               onChange={({ option }) => onSetLoanType(option)}
@@ -54,8 +56,10 @@ export const Inputs: React.FC<IProps> = ({
         </Box>
 
         <Box pad={{ bottom: "medium" }}>
-          <FormField label={`Loan amount ${CURRENCY.SIGN}`}>
+          <FormField label={`Loan amount ${CURRENCY.SIGN}`} htmlFor="loanAmount">
             <RangeInput
+              id="loanAmountRange"
+              name="loanAmountRange"
               step={LOAN_STEP}
               max={MAX_LOAN_AMOUT}
               min={MIN_LOAN_AMOUT}
@@ -66,13 +70,21 @@ export const Inputs: React.FC<IProps> = ({
 
           <Box direction="row" justify="start">
             <Box width="small">
-              <TextInput type="number" value={loanAmount} onChange={onChangeLoanAmount} />
+              <TextInput
+                id="loanAmount"
+                name="loanAmount"
+                type="number"
+                value={loanAmount}
+                onChange={onChangeLoanAmount}
+              />
             </Box>
           </Box>
         </Box>
 
-        <FormField label="Years amount">
+        <FormField label="Years amount" htmlFor="yearsAmount">
           <RangeInput
+            id="yearsAmountRange"
+            name="yearsAmountRange"
             max={MAX_YEARS_AMOUT}
             min={MIN_YEARS_AMOUT}
             value={yearsAmount}
@@ -82,6 +94,8 @@ export const Inputs: React.FC<IProps> = ({
         <Box direction="row" justify="start">
           <Box width="small">
             <TextInput
+              id="yearsAmount"
+              name="yearsAmount"
               type="number"
               max={MAX_YEARS_AMOUT}
               min={MIN_YEARS_AMOUT}
