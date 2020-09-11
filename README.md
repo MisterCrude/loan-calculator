@@ -1,9 +1,21 @@
-### Loan calculator React / TypeScrips
+### Loan calculator
 
 ---
 
-1. Clone repo
-2. Install dependences `$ yarn`
-3. Run app `$ yarn start`
+#### Testing app `$ yarn test`
 
-#### [Demo](https://ivyman.github.io/guitar-store/)
+#### Runing app `$ yarn start`
+
+<br/>
+
+### Tech stack
+
+1. React.js
+2. TypeScript
+3. grommet
+4. lodash
+5. git hooks
+
+---
+
+### [Demo](https://ivyman.github.io/loan-calculator/)
