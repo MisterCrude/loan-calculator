@@ -4,7 +4,7 @@
 
 ### Commands 
 1. Launch app `$ yarn start`
-2. Lounch test `$ yarn test`
+2. Launch tests `$ yarn test`
 
 <br/>
 
