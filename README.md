@@ -1,10 +1,10 @@
-### Loan calculator
+## Loan calculator
 
 ---
 
-#### Testing app `$ yarn test`
-
-#### Runing app `$ yarn start`
+### Commands 
+1. Launch app `$ yarn start`
+2. Lounch test `$ yarn test`
 
 <br/>
 
@@ -18,4 +18,4 @@
 
 ---
 
-### [Demo](https://ivyman.github.io/loan-calculator/)
+### [Demo](https://mistercrude.github.io/loan-calculator/)
